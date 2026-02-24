@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubham | Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #0a0a23;
+            --nav-bg: rgba(19, 19, 58, 0.95);
+            --section-bg: #12122f;
+            --text: #fff;
+            --text-secondary: #ccc;
+            --accent: #6c63ff;
+            --accent-hover: #5548e3;
+            --btn-bg: #6c63ff;
+            --btn-hover: #5548e3;
+            --card-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            --transition: 0.3s;
+        }
+
+        body.dark-mode {
+            --bg: #0a0a23;
+            --nav-bg: rgba(19, 19, 58, 0.95);
+            --section-bg: #12122f;
+            --text: #fff;
+            --text-secondary: #ccc;
+            --accent: #6c63ff;
+            --card-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode {
+            --bg: #f0f0f0;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --section-bg: #ffffff;
+            --text: #0a0a23;
+            --text-secondary: #555;
+            --accent: #6c63ff;
+            --card-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .dark-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--accent);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.4);
+            transition: var(--transition);
+        }
+
+        .hero-img:hover {
+            transform: scale(1.05);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        .hero .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero .social-links a {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .hero .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Sections */
+        section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--accent);
+        }
+
+        /* About */
+        .about {
+            background: var(--section-bg);
+            border-radius: 16px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Projects */
+        .projects .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--section-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.3);
+        }
+
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--btn-bg);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-3px);
+        }
+
+        /* Skills */
+        .skills .skill-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: var(--section-bg);
+            padding: 18px 30px;
+            border-radius: 50px;
+            border: 2px solid var(--accent);
+            font-weight: 600;
+            transition: 0.4s;
+        }
+
+        .skill-item:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--section-bg);
+            border-radius: 16px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact a {
+            display: inline-block;
+            margin: 15px;
+            padding: 14px 28px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .contact a:hover {
+            background: var(--accent-hover);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* Back to top */
+        #topBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
+            transition: var(--transition);
+            z-index: 999;
+            display: none;
+        }
+
+        #topBtn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-img {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+
+    <div id="particles-js"></div>
+
+    <nav>
+        <div class="logo">Shubham</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+            <a href="https://github.com/shubham-nov06" target="_blank">GitHub</a>
+        </div>
+        <button class="dark-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <img src="meee.jpeg" alt="Shubham's Photo" class="hero-img">
+        <h1>Hi, I'm Shubham</h1>
+        <p>B.Tech Student | Aspiring Full-Stack Developer | Passionate about Building Modern Web Experiences</p>
+        <div class="social-links">
+            <a href="https://github.com/shubham-nov06" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shubham-nov06" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:contactshubhamhere@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <h2>About Me</h2>
+        <p>I am a B.Tech student with a strong passion for web development and programming. I enjoy creating responsive, user-friendly projects and continuously learning new technologies to enhance my skills. Check out my GitHub for more of my work!</p>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+        <h2>Featured Projects</h2>
+        <div class="grid">
+            <!-- Amazon Clone -->
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://foolishdeveloper.com/wp-content/uploads/2024/05/thumbnail-5.png');"></div>
+                <div class="card-content">
+                    <div class="card-title">Amazon Clone</div>
+                    <p>A fully responsive Amazon UI clone built with HTML, CSS, and JavaScript, practicing frontend and backend integration concepts.</p>
+                    <a href="https://github.com/shubham-nov06/Amazon-Clone" target="_blank" class="btn">View Repo</a>
+                </div>
+            </div>
+
+            <!-- College Website -->
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://www.dezven.com/images/project/how-to-create-a-college-website-using-html-and-css-with-source-code.webp');"></div>
+                <div class="card-content">
+                    <div class="card-title">College Website</div>
+                    <p>Multi-page responsive college website with modern layouts, navigation, and design elements.</p>
+                    <a href="https://github.com/shubham-nov06/College-Website" target="_blank" class="btn">View Repo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills" id="skills">
+        <h2>My Skills</h2>
+        <div class="skill-box">
+            <div class="skill-item">HTML</div>
+            <div class="skill-item">CSS</div>
+            <div class="skill-item">JavaScript</div>
+            <div class="skill-item">Git & GitHub</div>
+            <div class="skill-item">Responsive Design</div>
+            <div class="skill-item">UI/UX Basics</div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2>Contact Me</h2>
+        <a href="mailto:contactshubhamhere@gmail.com">Email Me</a>
+        <a href="https://www.linkedin.com/in/shubham-nov06" target="_blank">LinkedIn</a>
+        <a href="https://github.com/shubham-nov06" target="_blank">GitHub</a>
+    </section>
+
+    <footer>© 2025 Shubham | All Rights Reserved</footer>
+    <button id="topBtn"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#6c63ff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#6c63ff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2 }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" } }
+            },
+            "retina_detect": true
+        });
+    </script>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Scroll Fade-in
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        // Back to top
+        const topBtn = document.getElementById('topBtn');
+        window.addEventListener('scroll', () => {
+            topBtn.style.display = (window.scrollY > 400) ? 'block' : 'none';
+        });
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>
